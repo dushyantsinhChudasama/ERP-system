@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import HR from "./pages/HR";
+import Inventory from "./pages/Inventory";
+import Finance from "./pages/Finance";
+import Support from "./pages/Support";
+import IT from "./pages/IT";
+import LoginPage from "./pages/LoginPage";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/dashboard" element={<MainLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="hr" element={<HR />} />
+        <Route path="inventory" element={<Inventory />} />
+        <Route path="finance" element={<Finance />} />
+        <Route path="support" element={<Support />} />
+        <Route path="it" element={<IT />} />
+      </Route>
+      {/* Redirect any unmatched route to login for now */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
